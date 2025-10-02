@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">InstaDev</string>
+    <!-- Login screen -->
+    <string name="login_screen_header_text_spain">Español (España)</string>
+    <string name="login_screen_content_description_image_insta_dev_logo">InstaDev logo header</string>
+    <string name="login_screen_text_field_email">Usuario, correo electrónico o móvil</string>
+    <string name="login_screen_text_field_password">Contraseña</string>
+    <string name="login_screen_button_sign_in">Iniciar sesión</string>
+    <string name="login_screen_text_button_forgot_password">¿Has olvidaddo la contraseña?</string>
+    <string name="login_screen_secondary_button_sign_up">Crear cuenta nueva</string>
+    <string name="login_screen_content_description_icon_meta_logo">meta logo</string>
 </resources>

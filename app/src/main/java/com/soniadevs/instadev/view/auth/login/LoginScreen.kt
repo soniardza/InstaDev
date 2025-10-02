@@ -11,11 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -25,10 +22,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.soniadevs.instadev.R
+import com.soniadevs.instadev.view.core.components.InstaButton
+import com.soniadevs.instadev.view.core.components.InstaButtonSecondary
+import com.soniadevs.instadev.view.core.components.InstaTextField
 
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
@@ -45,52 +46,56 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
         ) {
             Text(
                 modifier = Modifier.padding(top = 22.dp),
-                text = "Español (España)",
-                color = Color.Gray
+                text = stringResource(R.string.login_screen_header_text_spain),
+                color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(Modifier.weight(1f))
             Image(
                 modifier = Modifier.size(56.dp),
                 painter = painterResource(R.drawable.instadev_logo),
-                contentDescription = "InstaDev logo header"
+                contentDescription = stringResource(R.string.login_screen_content_description_image_insta_dev_logo)
             )
             Spacer(Modifier.weight(1f))
-            OutlinedTextField(
+            InstaTextField(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(30),
-                label = { Text("Usuario, correo electrónico o móvil") },
                 value = uiState.email,
-                onValueChange = { loginViewModel.onEmailChanged(it) })
+                label = stringResource(R.string.login_screen_text_field_email),
+                onValueChange = { loginViewModel.onEmailChanged(it) }
+            )
             Spacer(Modifier.height(10.dp))
-            OutlinedTextField(
+            InstaTextField(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(30),
-                label = { Text("Contraseña") },
                 value = uiState.password,
+                label = stringResource(R.string.login_screen_text_field_password),
                 onValueChange = { loginViewModel.onPasswordChanged(it) })
             Spacer(Modifier.height(10.dp))
-            Button(
+            InstaButton(
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(Color.Blue),
+                text = stringResource(R.string.login_screen_button_sign_in),
                 onClick = {},
-                enabled = uiState.isLoginEnabled) {
+                enabled = uiState.isLoginEnabled,
+            )
+            TextButton(onClick = {}) {
                 Text(
-                    modifier = Modifier.padding(vertical = 4.dp), text = "Iniciar sesión"
+                    text = stringResource(R.string.login_screen_text_button_forgot_password),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            TextButton(onClick = {}) { Text("¿Has olvidaddo la contraseña?") }
             Spacer(Modifier.weight(1.3f))
-            OutlinedButton(
+            InstaButtonSecondary(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {}
-            ) { Text("Crear cuenta nueva") }
+                onClick = {},
+                text = stringResource(R.string.login_screen_secondary_button_sign_up)
+            )
             Icon(
                 modifier = Modifier
                     .width(80.dp)
                     .padding(vertical = 24.dp),
                 painter = painterResource(R.drawable.ic_meta),
-                contentDescription = "meta logo",
-                tint = Color.Gray
+                contentDescription = stringResource(R.string.login_screen_content_description_icon_meta_logo),
+                tint = MaterialTheme.colorScheme.onBackground
             )
         }
     }
