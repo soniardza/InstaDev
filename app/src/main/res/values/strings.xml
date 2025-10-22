@@ -9,4 +9,17 @@
     <string name="login_screen_text_button_forgot_password">¿Has olvidaddo la contraseña?</string>
     <string name="login_screen_secondary_button_sign_up">Crear cuenta nueva</string>
     <string name="login_screen_content_description_icon_meta_logo">meta logo</string>
+    <string name="register_screen_content_description_icon_back">Atrás</string>
+    <string name="register_screen_text_what_is_your_phone">¿Cuál es tu número de móvil?</string>
+    <string name="register_screen_text_what_is_your_email">¿Cuál es tu correo electrónico?</string>
+    <string name="register_screen_text_description_phone">Introduce tu número de móvil de contacto. Nadie lo verá en tu perfil.</string>
+    <string name="register_screen_text_description_email">Introduce tu correo electrónico de contacto. Nadie lo verá en tu perfil.</string>
+    <string name="register_screen_text_field_phone">Número de móvil</string>
+    <string name="register_screen_text_field_email">Correo electrónico</string>
+    <string name="register_screen_text_notification_phone">Puede que recibas notificaciones en WhatsApp y por SMS por motivos de seguridad y para iniciar sesión.</string>
+    <string name="register_screen_text_notification_email">También te enviaremos correos electrónicos. Puedes cancelar esta opción cuando quieras. Más información</string>
+    <string name="register_screen_button_next">Siguiente</string>
+    <string name="register_screen_secondary_button_sign_up_email">Registrarte con tu correo electrónico</string>
+    <string name="register_screen_secondary_button_sign_up_phone">Registrarte con tu número de móvil</string>
+    <string name="register_screen_text_button_search_my_account">Buscar mi cuenta</string>
 </resources>
