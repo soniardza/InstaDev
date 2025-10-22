@@ -100,6 +100,7 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = viewModel()) {
                     }
                 }
             )
+            Spacer(Modifier.height(6.dp))
             InstaText(
                 text = stringResource(uiState.notificationText),
                 color = MaterialTheme.colorScheme.onBackground
