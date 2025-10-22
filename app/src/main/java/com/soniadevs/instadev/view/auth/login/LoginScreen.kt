@@ -31,7 +31,10 @@ import com.soniadevs.instadev.view.core.components.InstaButtonSecondary
 import com.soniadevs.instadev.view.core.components.InstaTextField
 
 @Composable
-fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
+fun LoginScreen(
+    loginViewModel: LoginViewModel = viewModel(),
+    navigateToRegister: () -> Unit
+) {
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold { padding ->
@@ -57,7 +60,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
             Spacer(Modifier.weight(1f))
             InstaTextField(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(30),
                 value = uiState.email,
                 label = stringResource(R.string.login_screen_text_field_email),
                 onValueChange = { loginViewModel.onEmailChanged(it) }
@@ -65,7 +67,6 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
             Spacer(Modifier.height(10.dp))
             InstaTextField(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(30),
                 value = uiState.password,
                 label = stringResource(R.string.login_screen_text_field_password),
                 onValueChange = { loginViewModel.onPasswordChanged(it) })
@@ -85,7 +86,7 @@ fun LoginScreen(loginViewModel: LoginViewModel = viewModel()) {
             Spacer(Modifier.weight(1.3f))
             InstaButtonSecondary(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {},
+                onClick = { navigateToRegister() },
                 text = stringResource(R.string.login_screen_secondary_button_sign_up)
             )
             Icon(

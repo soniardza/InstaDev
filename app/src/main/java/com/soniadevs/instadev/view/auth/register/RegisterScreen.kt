@@ -1,17 +1,14 @@
 package com.soniadevs.instadev.view.auth.register
 
-import android.widget.Toolbar
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -19,20 +16,14 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.soniadevs.instadev.R
@@ -43,8 +34,36 @@ import com.soniadevs.instadev.view.core.components.InstaTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen(registerViewModel: RegisterViewModel = viewModel()) {
+fun RegisterScreen(
+    registerViewModel: RegisterViewModel = viewModel(),
+    navigateBack: () -> Unit
+) {
     val uiState by registerViewModel.uiState.collectAsStateWithLifecycle()
+
+    val title: String
+    val description: String
+    val textFieldLabel: String
+    val notification: String
+    val changeModeTitle: String
+    when (uiState.isPhoneMode) {
+        true -> {
+            title = stringResource(R.string.register_screen_text_what_is_your_phone)
+            description = stringResource(R.string.register_screen_text_description_phone)
+            textFieldLabel = stringResource(R.string.register_screen_text_field_phone)
+            notification = stringResource(R.string.register_screen_text_notification_phone)
+            changeModeTitle =
+                stringResource(R.string.register_screen_secondary_button_sign_up_email)
+        }
+
+        false -> {
+            title = stringResource(R.string.register_screen_text_what_is_your_email)
+            description = stringResource(R.string.register_screen_text_description_email)
+            textFieldLabel = stringResource(R.string.register_screen_text_field_email)
+            notification = stringResource(R.string.register_screen_text_notification_email)
+            changeModeTitle =
+                stringResource(R.string.register_screen_secondary_button_sign_up_phone)
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -54,7 +73,8 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = viewModel()) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = stringResource(R.string.register_screen_content_description_icon_back),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.clickable { navigateBack() }
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -72,37 +92,26 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = viewModel()) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             InstaText(
-                text = stringResource(uiState.questionText),
+                modifier = Modifier.fillMaxWidth(),
+                text = title,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.headlineLarge
             )
             Spacer(Modifier.height(4.dp))
             InstaText(
-                text = stringResource(uiState.descriptionText),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                style = MaterialTheme.typography.titleSmall
+                text = description,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(10.dp))
             InstaTextField(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(30),
-                value = if (uiState.textFieldLabel == R.string.register_screen_text_field_phone) {
-                    uiState.phone
-                } else {
-                    uiState.email
-                },
-                label = stringResource(uiState.textFieldLabel),
-                onValueChange = {
-                    if (uiState.textFieldLabel == R.string.register_screen_text_field_phone) {
-                        registerViewModel.onPhoneChanged(it)
-                    } else {
-                        registerViewModel.onEmailChanged(it)
-                    }
-                }
+                value = uiState.value,
+                label = textFieldLabel,
+                onValueChange = { registerViewModel.onRegisterChanged(it) }
             )
             Spacer(Modifier.height(6.dp))
             InstaText(
-                text = stringResource(uiState.notificationText),
+                text = notification,
                 color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(Modifier.height(10.dp))
@@ -110,19 +119,13 @@ fun RegisterScreen(registerViewModel: RegisterViewModel = viewModel()) {
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.register_screen_button_next),
                 onClick = {},
-                enabled = uiState.isNextEnabled
+                enabled = uiState.isRegisterEnabled
             )
             Spacer(Modifier.height(6.dp))
             InstaButtonSecondary(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = {
-                    if (uiState.textFieldLabel == R.string.register_screen_text_field_phone) {
-                        registerViewModel.onRegisterWithEmailClicked()
-                    } else {
-                        registerViewModel.onRegisterWithPhoneClicked()
-                    }
-                },
-                text = stringResource(uiState.buttonText),
+                onClick = { registerViewModel.onChangeMode() },
+                text = changeModeTitle,
                 titleColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.onBackground)
             )

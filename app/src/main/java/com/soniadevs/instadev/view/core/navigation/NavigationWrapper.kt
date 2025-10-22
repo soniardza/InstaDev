@@ -12,8 +12,10 @@ fun NavigationWrapper() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Login) {
         composable<Login> {
-            //LoginScreen()
-            RegisterScreen()
+            LoginScreen(navigateToRegister = { navController.navigate(Register)})
+        }
+        composable<Register> {
+            RegisterScreen(navigateBack = { navController.popBackStack()})
         }
     }
 }
