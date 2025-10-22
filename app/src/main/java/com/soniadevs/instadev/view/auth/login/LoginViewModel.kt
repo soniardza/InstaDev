@@ -35,8 +35,7 @@ class LoginViewModel : ViewModel() {
 
     private fun isEmailValid(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
-    private fun isPasswordValid(password: String): Boolean =
-        Patterns.EMAIL_ADDRESS.matcher(password).matches()
+    private fun isPasswordValid(password: String): Boolean = password.length >= 6
 }
 
 data class LoginUiState(
