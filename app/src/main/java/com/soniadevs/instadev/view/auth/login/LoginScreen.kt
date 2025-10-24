@@ -74,7 +74,7 @@ fun LoginScreen(
             InstaButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = stringResource(R.string.login_screen_button_sign_in),
-                onClick = {},
+                onClick = { loginViewModel.onClickedSelected()},
                 enabled = uiState.isLoginEnabled,
             )
             TextButton(onClick = {}) {
