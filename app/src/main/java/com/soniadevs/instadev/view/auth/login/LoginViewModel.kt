@@ -1,5 +1,6 @@
 package com.soniadevs.instadev.view.auth.login
 
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,10 +37,18 @@ class LoginViewModel @Inject constructor(
 
     fun onClickedSelected() {
         viewModelScope.launch(Dispatchers.IO) {
-            login(
+            val response = login(
                 _uiState.value.email,
                 _uiState.value.password
             )
+
+            withContext(Dispatchers.Main) {
+                if (response != null) {
+                    Log.i("LOGIN", "SUCCESS ${response.name}")
+                } else {
+                    Log.i("LOGIN", "ERROR")
+                }
+            }
         }
     }
 
@@ -57,8 +67,8 @@ class LoginViewModel @Inject constructor(
 }
 
 data class LoginUiState(
-    val email: String = "",
-    val password: String = "",
+    val email: String = "sonia@gmail.com",
+    val password: String = "123qwerty",
     val isLoading: Boolean = false,
     val isLoginEnabled: Boolean = false
 )

@@ -4,14 +4,18 @@ import com.soniadevs.instadev.domain.entity.UserEntity
 import com.soniadevs.instadev.domain.entity.UserMode.COMPANY_USER
 import com.soniadevs.instadev.domain.entity.UserMode.CONTENT_CREATOR_USER
 import com.soniadevs.instadev.domain.entity.UserMode.REGULAR_USER
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class UserResponse(
     val userId: String,
-    val name: String,
+    @SerialName("na-me") val name: String,
     val nickname: String,
-    val followers: Int,
-    val following: List<String>,
-    val userType: Int
+    val followers: Int = 0,
+    val following: List<String> = emptyList(),
+    val userType: Int,
+    val verified: Boolean
 )
 
 fun UserResponse.toDomain(): UserEntity {
@@ -28,6 +32,7 @@ fun UserResponse.toDomain(): UserEntity {
         nickname = nickname,
         followers = followers,
         following = following,
-        userMode = userMode
+        userMode = userMode,
+        verified = verified
     )
 }
