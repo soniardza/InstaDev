@@ -1,8 +1,9 @@
 package com.soniadevs.instadev.domain.usecase
 
 import com.soniadevs.instadev.domain.repository.AuthRepository
+import javax.inject.Inject
 
-class Login(
+class Login @Inject constructor(
     private val authRepository: AuthRepository
 ) {
     operator fun invoke(user: String, password: String) {
