@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.soniadevs.instadev.R
 import com.soniadevs.instadev.view.core.components.InstaButton
 import com.soniadevs.instadev.view.core.components.InstaButtonSecondary
@@ -32,7 +31,7 @@ import com.soniadevs.instadev.view.core.components.InstaTextField
 
 @Composable
 fun LoginScreen(
-    loginViewModel: LoginViewModel = viewModel(),
+    loginViewModel: LoginViewModel = hiltViewModel(),
     navigateToRegister: () -> Unit
 ) {
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
