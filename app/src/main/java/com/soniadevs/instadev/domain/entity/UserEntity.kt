@@ -6,7 +6,8 @@ data class UserEntity(
     val nickname: String,
     val followers: Int,
     val following: List<String>,
-    val userMode: UserMode
+    val userMode: UserMode,
+    val verified: Boolean
 )
 
 sealed class UserMode(val userType: Int) {
